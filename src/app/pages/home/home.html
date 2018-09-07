@@ -12,17 +12,57 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-grid>
+    <ion-row *ngFor="let book of items">
+      <ion-col col-12>
+        <ion-card>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4u3rm3SOCbBuV-yM-wn6jbaEkKx3A_jnEeB9gW9eN72YIomTI">
+            </ion-avatar>
+            <h2>BookingId: {{ book.bookingId }}</h2>
+            <p>Cliente: {{ book.firstName }} {{ book.lastName }}</p>
+          </ion-item>
 
-<ion-list>
+          <img src="https://cdn.fbreader.org/files/images/android/free_new_512x512.png">
+
+          <ion-card-content>
+            <ion-row>
+              <p><strong>Fecha Creacíón:</strong> {{ book.bookingTime }} </p>
+            </ion-row>
+            <ion-row>
+              <p><strong>Dirección:</strong> {{ book.locationId.streetAddress }} </p>
+            </ion-row>
+            
+          </ion-card-content>
+
+          <ion-row>
+            <ion-col>
+<!--               <button ion-button icon-start clear small>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>12 Likes</div>
+              </button> -->
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="logo-usd"></ion-icon>
+                <div>Price: {{ book.bookingPrice }}</div>
+              </button>
+            </ion-col>
+          </ion-row>
+
+        </ion-card>      
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<!-- <ion-list>
   <ion-item *ngFor="let book of bookings">
     <h2>title</h2>
     <p><strong>Fecha de Creación:</strong> {{book.bookingTime}}</p>
     <p><strong>Dirección:</strong> {{book.locationId.streetAddress}}</p>
     <p><strong>Precio:</strong> {{book.bookingPrice}}</p>
   </ion-item>
-</ion-list>
-
-</ion-content>
-
-
-
+</ion-list> -->

@@ -40,7 +40,7 @@ export class Service {
         this.http.put(this.url+Datas.email, null, {headers: headers})
           .subscribe(res => {
             let data = res.json();
-            console.log('desde obtener los datos', data);
+            //console.log('desde obtener los datos', data);
             this.currentUser = new User(data.firstName, data.lastName, data.email, data.sessionTokenBck);
             observer.next(true);
             observer.complete();
@@ -63,7 +63,7 @@ export class Service {
      
       let url: String = "https://dev.tuten.cl/TutenREST/rest/user/";       
       let bookings = new Headers();
-      bookings.append('token', 'testapis@tuten.clgfi92od081050c93dhgelu403d');
+      bookings.append('token', token);
       bookings.append('app', 'APP_BCK');
       bookings.append('adminemail', email);
       //console.log(url+email+"/bookings?current=true");
