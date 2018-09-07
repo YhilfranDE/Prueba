@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Service } from '../../services/service';
 import { Login } from '../login/login';
 import { Http, Headers } from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController, Loading } from 'ionic-angular';
 
 
 
@@ -13,23 +13,26 @@ import { AlertController } from 'ionic-angular';
 })
 export class HomePage {
   public bookings: any;
+  public generalLoading: boolean = false;
   firstName = '';
   lastName = '';
   email = '';
   token = '';
   email2 = 'contacto@tuten.cl';
   items : any;
+  
 
   constructor(public navCtrl: NavController, 
               private auth: Service,
-              public alertCtrl: AlertController){
+              public alertCtrl: AlertController,
+              private loadingCtrl: LoadingController){
 
     this.Books();
-    this.showAlert();
-    
   }
 
   Books(){
+
+   this.generalLoading = true;
    let info = this.auth.getUserInfo();
    let rut;
    let string = '';
@@ -57,7 +60,8 @@ export class HomePage {
         }); 
         // console.log(i);
         // console.log("libros_ modificados",this.bookings);
-        this.initializeItems();   
+        this.initializeItems();
+        this.generalLoading = false;   
 
         }, (err) => {
           console.log(err);
@@ -71,15 +75,6 @@ export class HomePage {
     });
   }
 
-  showAlert() {
-    const alert = this.alertCtrl.create({
-      title: 'Bienvenido!',
-      subTitle:this.firstName+' '+this.lastName,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
   initializeItems() {
 
     this.items = this.bookings;
@@ -87,6 +82,7 @@ export class HomePage {
   }
 
   getItems(ev) {
+    
     // Reset items back to all of the items
     this.initializeItems()
 
@@ -100,9 +96,10 @@ export class HomePage {
         return (book.bookingId.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+    
+    if (val.trim() == '') {
+      this.Books();
+    }
   }
-
-
-
 
 }

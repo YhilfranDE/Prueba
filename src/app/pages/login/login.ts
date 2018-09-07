@@ -33,7 +33,7 @@ export class Login {
   }
 
   public login() {
-    this.showLoading()
+    this.showLoading();
     this.auth.login(this.registerDatas).subscribe(allowed => {
       if (allowed) {
         this.nav.setRoot(HomePage);
