@@ -19,7 +19,7 @@ export class HomePage {
   email = '';
   token = '';
   email2 = 'contacto@tuten.cl';
-  items : any;
+  items : any[] = [];
   
 
   constructor(public navCtrl: NavController, 
@@ -53,6 +53,7 @@ export class HomePage {
         this.bookings.forEach(x =>{
           
           json_bk = JSON.parse(x.bookingFields);
+
           this.bookings[i]['firstName'] = json_bk.firstName;
           this.bookings[i]['lastName'] = json_bk.lastName;
           i++;
@@ -99,7 +100,7 @@ export class HomePage {
     
     if (val.trim() == '') {
       this.Books();
-    }
+    }// si el input de busqueda está vacío vuelvo a cargar los libros
   }
 
 }

@@ -1,10 +1,17 @@
+<style type="text/css">
+ ion-spinner {
+  width: 56px;
+  height: 56px;
+} 
+</style>
+
 <ion-header>
   <ion-navbar>
     <ion-title center text-center>
       Bookings
     </ion-title>
     <ion-buttons end>
-         <button ion-button icon-only round (click)="logout()">
+         <button ion-text color="primary" ion-button icon-only round (click)="logout()">
           <ion-icon name="md-exit"></ion-icon>
          </button>
     </ion-buttons>
@@ -14,48 +21,64 @@
 <ion-content padding>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
-  <ion-spinner style="margin:150px 150px;" name="crescent" center text-center *ngIf="generalLoading"></ion-spinner>
+  <ion-spinner color = "" style="margin:150px 130px;" name="crescent" center text-center *ngIf="generalLoading"></ion-spinner>
   <ion-grid *ngIf="!generalLoading">
-    <ion-row *ngFor="let book of items">
-      <ion-col col-12>
-        <ion-card>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4u3rm3SOCbBuV-yM-wn6jbaEkKx3A_jnEeB9gW9eN72YIomTI">
-            </ion-avatar>
-            <h2>BookingId: {{ book.bookingId }}</h2>
-            <p>Cliente: {{ book.firstName }} {{ book.lastName }}</p>
-          </ion-item>
 
-          <img src="https://cdn.fbreader.org/files/images/android/free_new_512x512.png">
+    <div *ngIf="!!items.length">
+      <ion-row *ngFor="let book of items">
+        <ion-col col-12>
+          <ion-card>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4u3rm3SOCbBuV-yM-wn6jbaEkKx3A_jnEeB9gW9eN72YIomTI">
+              </ion-avatar>
+              <h2>BookingId: {{ book.bookingId }}</h2>
+              <p>Cliente: {{ book.firstName }} {{ book.lastName }}</p>
+            </ion-item>
 
-          <ion-card-content>
+            <img src="https://cdn.fbreader.org/files/images/android/free_new_512x512.png">
+
+            <ion-card-content>
+              <ion-row>
+                <p><strong>Fecha Creación:</strong> {{ book.bookingTime | date }} </p>
+              </ion-row>
+              <ion-row>
+                <p><strong>Dirección:</strong> {{ book.locationId.streetAddress }} </p>
+              </ion-row>
+              
+            </ion-card-content>
+
             <ion-row>
-              <p><strong>Fecha Creación:</strong> {{ book.bookingTime | date }} </p>
+              <ion-col>
+  <!--               <button ion-button icon-start clear small>
+                  <ion-icon name="thumbs-up"></ion-icon>
+                  <div>12 Likes</div>
+                </button> -->
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-start clear small>
+                  <div>Price: {{ book.bookingPrice | currency}}</div>
+                </button>
+              </ion-col>
             </ion-row>
-            <ion-row>
-              <p><strong>Dirección:</strong> {{ book.locationId.streetAddress }} </p>
-            </ion-row>
-            
-          </ion-card-content>
 
-          <ion-row>
-            <ion-col>
-<!--               <button ion-button icon-start clear small>
-                <ion-icon name="thumbs-up"></ion-icon>
-                <div>12 Likes</div>
-              </button> -->
-            </ion-col>
-            <ion-col>
-              <button ion-button icon-start clear small>
-                <div>Price: {{ book.bookingPrice | currency}}</div>
-              </button>
-            </ion-col>
-          </ion-row>
+          </ion-card>      
+        </ion-col>
+      </ion-row>      
+    </div>
+    <div>
+    <div *ngIf="!items.length">
+      <ion-card>
+        <ion-row>
+          <ion-col>
+            <h4 ion-text color="primary" center text-center text-muted><ion-icon name="help-circle"></ion-icon>  
+            No hay resultados!</h4>           
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
 
-        </ion-card>      
-      </ion-col>
-    </ion-row>
+    </div>
   </ion-grid>
 </ion-content>
 

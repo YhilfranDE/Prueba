@@ -8,4 +8,5 @@ Para ejecutas la Prueba:
 1- npm install
 2- npm install --only=dev
 3- npm install -g ionic 
-4- ionic serve
+4- npm i @ionic/lab
+5- ionic serve --lab
