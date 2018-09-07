@@ -1,15 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HttpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { Login } from './pages/login/login';
 
-//providers
-import { AuthService } from './providers/auth-service';
+//services
+import { Service } from './services/service';
 
 
 @NgModule({
@@ -32,7 +32,7 @@ import { AuthService } from './providers/auth-service';
   providers: [
     StatusBar,
     SplashScreen,
-    AuthService,
+    Service,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

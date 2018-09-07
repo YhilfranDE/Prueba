@@ -1,21 +1,17 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-title center text-center>
       Bookings
     </ion-title>
     <ion-buttons end>
+         <button ion-button icon-only round (click)="logout()">
+          <ion-icon name="md-exit"></ion-icon>
+         </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-  <h3>{{firstName}} {{lastName}}!</h3>
-   <button ion-button round color="danger" (click)="logout()"><ion-icon name="md-exit"></ion-icon></button>
-
-  <ion-item>
-    <ion-input type="text" placeholder="Username"></ion-input>
-  </ion-item>
 
 <ion-list>
   <ion-item *ngFor="let book of bookings">

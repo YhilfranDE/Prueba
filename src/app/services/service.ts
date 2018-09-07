@@ -19,7 +19,7 @@ export class User {
 
 
 @Injectable()
-export class AuthService {
+export class Service {
   currentUser: User;
   url: String = "https://dev.tuten.cl/TutenREST/rest/user/";
 
@@ -34,13 +34,14 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('password', Datas.pass);
-        headers.append('app', 'APP_WEB');
+        headers.append('app', 'APP_BCK');
         headers.append('Accept', 'application/json');
         //console.log("desde:", Datas);
         this.http.put(this.url+Datas.email, null, {headers: headers})
           .subscribe(res => {
             let data = res.json();
-            this.currentUser = new User(data.firstName, data.lastName, data.email, data.sessionTokenWeb);
+            console.log('desde obtener los datos', data);
+            this.currentUser = new User(data.firstName, data.lastName, data.email, data.sessionTokenBck);
             observer.next(true);
             observer.complete();
           }, (err) => {
@@ -58,17 +59,17 @@ export class AuthService {
     return this.currentUser;
   }
 
-  public getBookings(token,email){
-
-      let url: String = "https://dev.tuten.cl/TutenREST/rest/booking/";
-      let page = 0;
-      let pagesize = 0;        
+  public getBookings(token,email,email2){
+     
+      let url: String = "https://dev.tuten.cl/TutenREST/rest/user/";       
       let bookings = new Headers();
-      bookings.append('Content-Type', 'application/json');
-      bookings.append('token', token);
-      bookings.append('app', 'APP_WEB');
-      bookings.append('Accept', 'application/json');    
-      return this.http.get(url+email+"/all?current=true&page="+page+"&pagesize="+pagesize, {headers: bookings});      
+      bookings.append('token', 'testapis@tuten.clgfi92od081050c93dhgelu403d');
+      bookings.append('app', 'APP_BCK');
+      bookings.append('adminemail', email);
+      //console.log(url+email+"/bookings?current=true");
+      return this.http.get(url+email2+"/bookings", {headers: bookings}); 
+
+
   }
 
 

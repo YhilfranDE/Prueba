@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController, Loading} from 'ionic-angular';
-import { AuthService } from '../../providers/auth-service';
-
+import { Service } from '../../services/service';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -13,11 +12,11 @@ export class Login {
   loading: Loading;
   registerDatas = { email: '', pass: '' };
 
- constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+ constructor(private nav: NavController, private auth: Service, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Verificando...',
+      content: 'Cargando...',
       dismissOnPageChange: true
     });
     this.loading.present();
@@ -39,7 +38,7 @@ export class Login {
       if (allowed) {
         this.nav.setRoot(HomePage);
       } else {
-        this.showError("Datos incorrectos");
+        this.showError("Email o Password incorrectos");
       }
     },
       error => {
